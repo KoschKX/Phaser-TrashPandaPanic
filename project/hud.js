@@ -104,7 +104,7 @@ export class HUD {
         this.scoreText.setPosition(leftMargin, topMargin + verticalSpacing).setScale(this.fixedScale);
         this.ninjasKilledText.setPosition(leftMargin, topMargin + verticalSpacing * 2).setScale(this.fixedScale);
 
-        const buttonGap = 32 * this.fixedScale;
+        const buttonGap = 30 * this.fixedScale;
         this.restartButton.setPosition(gameWidth - fixedOffset, topMargin).setScale(this.fixedScale);
         this.soundButton.setPosition(
             this.restartButton.x - this.restartButton.width * this.restartButton.scaleX - buttonGap,
