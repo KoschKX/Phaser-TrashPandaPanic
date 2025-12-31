@@ -17,7 +17,7 @@ export class HUD {
 
         this.hudFontSize = 48;
         this.hudLineHeight = 48;
-        this.hudIconSpacing = 48;
+        this.hudIconSpacing = 72;
         this.hudFontFamily = 'Courier New, monospace';
         this.fontStyle = '';
         
@@ -45,29 +45,26 @@ export class HUD {
             fontStyle: this.fontStyle
         }).setDepth(15).setScale(this.fixedScale);
         
-        this.restartButton = scene.add.text(gameWidth - 10, 10, '↻', {
+        this.restartButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '🔄', {
             fontSize: this.hudFontSize+'px',
             fill: '#fff',
-            fontFamily: this.hudFontFamily,
+            //fontFamily: this.hudFontFamily,
             fontStyle: this.fontStyle
         }).setOrigin(1, 0).setDepth(15).setInteractive().setScale(this.fixedScale);
         
-        this.soundButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '◄٤', {
+        this.soundButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '🔊', {
             fontSize: this.hudFontSize+'px',
             fill: '#fff',
-            fontFamily: this.hudFontFamily,
+            //fontFamily: this.hudFontFamily,
             fontStyle: this.fontStyle
         }).setOrigin(1, 0).setDepth(15).setInteractive().setScale(this.fixedScale);
         
-        this.pauseButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '⏸ ', {
+        this.pauseButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '⏸️', {
             fontSize: this.hudFontSize+'px',
             fill: '#fff',
-            fontFamily: this.hudFontFamily,
+            //fontFamily: this.hudFontFamily,
             fontStyle: this.fontStyle
         }).setOrigin(1, 0).setDepth(15).setInteractive().setScale(this.fixedScale);
-        this.pauseButtonYOffset = 10; 
-        this.playButtonYOffset = 7;
-        
         
         this.pauseButton.on('pointerdown', () => {
             this.togglePause();
@@ -106,24 +103,26 @@ export class HUD {
         this.packageSquaresText.setPosition(leftMargin, topMargin).setScale(this.fixedScale);
         this.scoreText.setPosition(leftMargin, topMargin + verticalSpacing).setScale(this.fixedScale);
         this.ninjasKilledText.setPosition(leftMargin, topMargin + verticalSpacing * 2).setScale(this.fixedScale);
+
+        const buttonGap = 32 * this.fixedScale;
         this.restartButton.setPosition(gameWidth - fixedOffset, topMargin).setScale(this.fixedScale);
-        this.soundButton.setPosition(gameWidth - fixedOffset - fixedIconSpacing * 0.85, topMargin).setScale(this.fixedScale);
-        // Lower the pause button a few pixels if showing ⏸
-        let pauseYOffset = this.playButtonYOffset;
-        if (this.pauseButton.text && this.pauseButton.text.trim() === '⏸') {
-            pauseYOffset = this.pauseButtonYOffset;
-        }
-        this.pauseButton.setPosition(gameWidth - fixedOffset - fixedIconSpacing * 2, topMargin + pauseYOffset).setScale(this.fixedScale);
+        this.soundButton.setPosition(
+            this.restartButton.x - this.restartButton.width * this.restartButton.scaleX - buttonGap,
+            topMargin
+        ).setScale(this.fixedScale);
+        this.pauseButton.setPosition(
+            this.soundButton.x - this.soundButton.width * this.soundButton.scaleX - buttonGap,
+            topMargin
+        ).setScale(this.fixedScale);
         if (this.gameOverText) {
             this.gameOverText.setScale(this.fixedScale);
         }
-        this.pauseButton.setY(pauseYOffset);
     }
     
     toggleMute() {
         this.isMuted = !this.isMuted;
         this.scene.sound.mute = this.isMuted;
-        this.soundButton.setText(this.isMuted ? '◄ ' : '◄٤');
+        this.soundButton.setText(this.isMuted ? '🔇' : '🔊');
     }
     
     togglePause() {
@@ -133,17 +132,13 @@ export class HUD {
             this.scene.time.paused = true;
             this.scene.tweens.pauseAll();
             this.scene.anims.pauseAll();
-            this.pauseButton.setText('▶ ');
-            // Reset Y offset for ▶
-            this.pauseButton.setY(7);
+            this.pauseButton.setText('▶️');
         } else {
             this.scene.physics.resume();
             this.scene.time.paused = false;
             this.scene.tweens.resumeAll();
             this.scene.anims.resumeAll();
-            this.pauseButton.setText('⏸ ');
-            // Lower the pause button for ⏸
-            this.pauseButton.setY(this.pauseButtonYOffset);
+            this.pauseButton.setText('⏸️');
         }
     }
     
