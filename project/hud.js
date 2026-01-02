@@ -16,6 +16,7 @@ export class HUD {
         this.fixedScale = 1 / displayScale;
 
         this.hudFontSize = 48;
+        this.hudIconSize = 32;
         this.hudLineHeight = 48;
         this.hudIconSpacing = 72;
         this.hudFontFamily = 'Courier New, monospace';
@@ -46,21 +47,21 @@ export class HUD {
         }).setDepth(15).setScale(this.fixedScale);
         
         this.restartButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '🔄', {
-            fontSize: this.hudFontSize+'px',
+            fontSize: this.hudIconSize+'px',
             fill: '#fff',
             //fontFamily: this.hudFontFamily,
             fontStyle: this.fontStyle
         }).setOrigin(1, 0).setDepth(15).setInteractive().setScale(this.fixedScale);
         
         this.soundButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '🔊', {
-            fontSize: this.hudFontSize+'px',
+            fontSize: this.hudIconSize+'px',
             fill: '#fff',
             //fontFamily: this.hudFontFamily,
             fontStyle: this.fontStyle
         }).setOrigin(1, 0).setDepth(15).setInteractive().setScale(this.fixedScale);
         
         this.pauseButton = scene.add.text(gameWidth - 10 - this.hudIconSpacing, 10, '⏸️', {
-            fontSize: this.hudFontSize+'px',
+            fontSize: this.hudIconSize+'px',
             fill: '#fff',
             //fontFamily: this.hudFontFamily,
             fontStyle: this.fontStyle
